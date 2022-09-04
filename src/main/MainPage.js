@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useCallback, useRef,
+  useState, useEffect, useCallback,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -7,27 +7,13 @@ import {
   Toolbar,
   IconButton,
   Button,
-  OutlinedInput,
-  InputAdornment,
-  Popover,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Badge,
   Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ListIcon from '@mui/icons-material/ViewList';
-import TuneIcon from '@mui/icons-material/Tune';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import DevicesList from './DevicesList';
@@ -35,7 +21,6 @@ import MapView from '../map/core/MapView';
 import MapSelectedDevice from '../map/main/MapSelectedDevice';
 import MapAccuracy from '../map/main/MapAccuracy';
 import MapGeofence from '../map/main/MapGeofence';
-import MapCurrentLocation from '../map/MapCurrentLocation';
 import BottomMenu from '../common/components/BottomMenu';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import PoiMap from '../map/main/PoiMap';
@@ -49,14 +34,10 @@ import { useDeviceReadonly } from '../common/util/permissions';
 import MapPositions from '../map/MapPositions';
 import MapDirection from '../map/MapDirection';
 import MapOverlay from '../map/overlay/MapOverlay';
-import MapGeocoder from '../map/geocoder/MapGeocoder';
 import MapScale from '../map/MapScale';
-import MapNotification from '../map/notification/MapNotification';
-import EventsDrawer from './EventsDrawer';
-import useFeatures from '../common/util/useFeatures';
 
 export const glassMorphism = {
-  background: 'rgba(255,255,255,0.55)',
+  background: 'rgba(255,255,255,0.49)',
   backdropFilter: 'blur(25px)',
 };
 
