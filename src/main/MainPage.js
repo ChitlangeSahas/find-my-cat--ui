@@ -216,8 +216,8 @@ const MainPage = () => {
       </MapView>
       <MapScale />
       {' '}
-      {phone && <MapPadding bottom={parseInt(300, 10)} />}
-      {/* {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />} */}
+      {/* { phone && <MapPadding bottom={parseInt(250, 10)} />} */}
+      { desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />}
       <Paper elevation={4} square className={`${classes.sidebar}`}>
         <Toolbar className={classes.toolbar} disableGutters>
           <Typography variant="h6">Devices</Typography>
