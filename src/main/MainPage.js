@@ -54,13 +54,14 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 3,
     margin: theme.spacing(1.5),
     width: theme.dimensions.drawerWidthDesktop,
-    bottom: theme.dimensions.bottomBarHeight,
+    bottom: 0,
     transition: 'transform .5s ease',
     ...glassMorphism,
     [theme.breakpoints.down('md')]: {
       width: '100%',
       margin: 0,
     },
+    borderRadius: '8px',
   },
   sidebarCollapsed: {
     transform: `translateX(-${theme.dimensions.drawerWidthDesktop})`,
@@ -120,11 +121,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bottomMenu: {
-    position: 'fixed',
-    left: theme.spacing(1.5),
-    bottom: theme.spacing(1.5),
-    zIndex: 4,
+    // position: 'fixed',
+    // left: theme.spacing(1.5),
+    // bottom: theme.spacing(1.5),
     width: theme.dimensions.drawerWidthDesktop,
+    borderRadius: '0 0 8px 8px',
   },
   filterPanel: {
     display: 'flex',
@@ -217,7 +218,9 @@ const MainPage = () => {
         <MapSelectedDevice />
         <PoiMap />
       </MapView>
-      <MapScale />      {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />}
+      <MapScale />
+      {' '}
+      {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />}
       <Button
         variant="contained"
         color={phone ? 'secondary' : 'primary'}
@@ -229,7 +232,7 @@ const MainPage = () => {
         <ListIcon />
         <div className={classes.sidebarToggleText}>{t('deviceTitle')}</div>
       </Button>
-      <Paper square elevation={3} className={`${classes.sidebar} ${!devicesOpen && classes.sidebarCollapsed}`}>
+      <Paper elevation={4} square className={`${classes.sidebar} ${!devicesOpen && classes.sidebarCollapsed}`}>
         <Toolbar className={classes.toolbar} disableGutters>
           <Typography variant="h6">Devices</Typography>
           <IconButton onClick={() => navigate('/settings/device')} disabled={deviceReadonly}>
@@ -239,12 +242,13 @@ const MainPage = () => {
         <div className={classes.deviceList}>
           <DevicesList devices={filteredDevices} />
         </div>
+        {desktop && (
+          <div className={classes.bottomMenu}>
+            <BottomMenu />
+          </div>
+        )}
       </Paper>
-      {desktop && (
-        <div className={classes.bottomMenu}>
-          <BottomMenu />
-        </div>
-      )}
+
       {selectedDeviceId && (
         <div className={classes.statusCard}>
           <StatusCard

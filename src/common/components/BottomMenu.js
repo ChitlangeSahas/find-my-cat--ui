@@ -14,6 +14,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
+import { glassMorphism } from '../../main/MainPage';
 
 const BottomMenu = () => {
   const navigate = useNavigate();
@@ -76,8 +77,8 @@ const BottomMenu = () => {
   };
 
   return (
-    <Paper square elevation={3}>
-      <BottomNavigation value={currentSelection()} onChange={handleSelection} showLabels>
+    <Paper elevation={0} style={{ borderRadius: '0 0 8px 8px', background: 'transparent' }}>
+      <BottomNavigation value={currentSelection()} onChange={handleSelection} showLabels style={{ borderRadius: '0 0 8px 8px', background: 'transparent' }}>
         <BottomNavigationAction
           label={t('mapTitle')}
           icon={(
