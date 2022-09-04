@@ -173,23 +173,18 @@ const DevicesList = ({ devices }) => {
   }, []);
 
   return (
-    <AutoSizer className={classes.list}>
-      {({ height, width }) => (
-        <List disablePadding>
-          <FixedSizeList
-            width={width}
-            height={height}
-            itemCount={devices.length}
-            itemData={{ items: devices }}
-            itemSize={72}
-            overscanCount={10}
-            innerRef={listInnerEl}
-          >
-            {DeviceRow}
-          </FixedSizeList>
-        </List>
-      )}
-    </AutoSizer>
+    <List disablePadding>
+      <FixedSizeList
+        height={Math.max(73 * devices.length, 200)}
+        itemCount={devices.length}
+        itemData={{ items: devices }}
+        itemSize={72}
+        overscanCount={10}
+        innerRef={listInnerEl}
+      >
+        {DeviceRow}
+      </FixedSizeList>
+    </List>
   );
 };
 

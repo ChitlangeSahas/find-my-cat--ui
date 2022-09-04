@@ -34,11 +34,6 @@ const App = () => {
           <div className={classes.page}>
             <Outlet />
           </div>
-          {!desktop && (
-            <div className={classes.menu}>
-              <BottomMenu />
-            </div>
-          )}
         </>
       )}
     </>

@@ -49,15 +49,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
-    left: 0,
-    top: 0,
+    // left: 0,
+    // top: 0,
     zIndex: 3,
     margin: theme.spacing(1.5),
     width: theme.dimensions.drawerWidthDesktop,
     bottom: 0,
     transition: 'transform .5s ease',
     ...glassMorphism,
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%',
       margin: 0,
     },
@@ -121,10 +121,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bottomMenu: {
-    // position: 'fixed',
-    // left: theme.spacing(1.5),
-    // bottom: theme.spacing(1.5),
-    width: theme.dimensions.drawerWidthDesktop,
     borderRadius: '0 0 8px 8px',
   },
   filterPanel: {
@@ -220,7 +216,8 @@ const MainPage = () => {
       </MapView>
       <MapScale />
       {' '}
-      {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />}
+      {phone && <MapPadding bottom={parseInt(300, 10)} />}
+      {/* {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />} */}
       <Button
         variant="contained"
         color={phone ? 'secondary' : 'primary'}
@@ -232,7 +229,7 @@ const MainPage = () => {
         <ListIcon />
         <div className={classes.sidebarToggleText}>{t('deviceTitle')}</div>
       </Button>
-      <Paper elevation={4} square className={`${classes.sidebar} ${!devicesOpen && classes.sidebarCollapsed}`}>
+      <Paper elevation={4} square className={`${classes.sidebar}`}>
         <Toolbar className={classes.toolbar} disableGutters>
           <Typography variant="h6">Devices</Typography>
           <IconButton onClick={() => navigate('/settings/device')} disabled={deviceReadonly}>
@@ -242,11 +239,11 @@ const MainPage = () => {
         <div className={classes.deviceList}>
           <DevicesList devices={filteredDevices} />
         </div>
-        {desktop && (
+        {
           <div className={classes.bottomMenu}>
             <BottomMenu />
           </div>
-        )}
+        }
       </Paper>
 
       {selectedDeviceId && (
