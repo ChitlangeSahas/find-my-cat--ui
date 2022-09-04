@@ -218,17 +218,6 @@ const MainPage = () => {
       {' '}
       {phone && <MapPadding bottom={parseInt(300, 10)} />}
       {/* {desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />} */}
-      <Button
-        variant="contained"
-        color={phone ? 'secondary' : 'primary'}
-        classes={{ containedPrimary: classes.sidebarToggleBg }}
-        className={classes.sidebarToggle}
-        onClick={handleClose}
-        disableElevation
-      >
-        <ListIcon />
-        <div className={classes.sidebarToggleText}>{t('deviceTitle')}</div>
-      </Button>
       <Paper elevation={4} square className={`${classes.sidebar}`}>
         <Toolbar className={classes.toolbar} disableGutters>
           <Typography variant="h6">Devices</Typography>
