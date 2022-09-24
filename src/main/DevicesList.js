@@ -75,7 +75,10 @@ const DeviceRow = ({ data, index, style }) => {
   const position = useSelector((state) => state.positions.items[item.id]);
 
   const secondaryText = () => {
-    if (item.status === 'online' || !item.lastUpdate) {
+    if (!item.lastUpdate) {
+      return 'Waiting for connection...';
+    }
+    if (item.status === 'online') {
       return `${formatStatus(item.status, t)} (${moment(item.lastUpdate).fromNow()})`;
     }
     return moment(item.lastUpdate).fromNow();
