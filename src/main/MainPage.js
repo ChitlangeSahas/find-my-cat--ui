@@ -228,11 +228,9 @@ const MainPage = () => {
         <div className={classes.deviceList}>
           <DevicesList devices={filteredDevices} />
         </div>
-        {
-          <div className={classes.bottomMenu}>
-            <BottomMenu />
-          </div>
-        }
+        <div className={classes.bottomMenu}>
+          <BottomMenu />
+        </div>
       </Paper>
 
       {selectedDeviceId && (

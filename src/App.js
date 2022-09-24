@@ -30,11 +30,9 @@ const App = () => {
       <SocketController />
       <CachingController />
       {!initialized ? (<LinearProgress />) : (
-        <>
-          <div className={classes.page}>
-            <Outlet />
-          </div>
-        </>
+        <div className={classes.page}>
+          <Outlet />
+        </div>
       )}
     </>
   );

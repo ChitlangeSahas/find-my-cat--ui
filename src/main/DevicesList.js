@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import makeStyles from '@mui/styles/makeStyles';
 import {
-  IconButton, Tooltip, Avatar, List, ListItemAvatar, ListItemText, ListItemButton,
+  IconButton, Tooltip, Avatar, List, ListItemAvatar, ListItemText, ListItemButton, Button, Box, Typography,
 } from '@mui/material';
 import { FixedSizeList } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -16,6 +16,8 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import FlashOffIcon from '@mui/icons-material/FlashOff';
 import ErrorIcon from '@mui/icons-material/Error';
 import moment from 'moment';
+import { Add, Delete } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { devicesActions } from '../store';
 import { useEffectAsync } from '../reactHelper';
 import {
@@ -23,7 +25,7 @@ import {
 } from '../common/util/formatter';
 import { useTranslation } from '../common/components/LocalizationProvider';
 import { mapIconKey, mapIcons } from '../map/core/preloadImages';
-import { useAdministrator } from '../common/util/permissions';
+import { useAdministrator, useDeviceReadonly } from '../common/util/permissions';
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -149,6 +151,8 @@ const DevicesList = ({ devices }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const listInnerEl = useRef(null);
+  const deviceReadonly = useDeviceReadonly();
+  const navigate = useNavigate();
 
   if (listInnerEl.current) {
     listInnerEl.current.className = classes.listInner;
@@ -172,10 +176,17 @@ const DevicesList = ({ devices }) => {
     }
   }, []);
 
+  const getListHeight = () => {
+    if (devices.length === 0) {
+      return 3;
+    }
+    return Math.max(73 * devices.length, 200);
+  };
+
   return (
     <List disablePadding>
       <FixedSizeList
-        height={Math.max(73 * devices.length, 200)}
+        height={getListHeight()}
         itemCount={devices.length}
         itemData={{ items: devices }}
         itemSize={72}
@@ -184,6 +195,25 @@ const DevicesList = ({ devices }) => {
       >
         {DeviceRow}
       </FixedSizeList>
+      {devices.length === 0 && (
+      <Box
+        style={{ padding: '16px' }}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Typography variant="subtitle1">You have no devices configured.</Typography>
+        <Button
+          variant="outlined"
+          startIcon={<Add />}
+          sx={{ marginTop: '12px' }}
+          onClick={() => navigate('/settings/device')}
+          disabled={deviceReadonly}
+        >
+          Add device
+        </Button>
+      </Box>
+      )}
     </List>
   );
 };
