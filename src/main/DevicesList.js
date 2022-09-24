@@ -180,7 +180,7 @@ const DevicesList = ({ devices }) => {
     if (devices.length === 0) {
       return 3;
     }
-    return Math.max(73 * devices.length, 200);
+    return Math.min(73 * devices.length, 200);
   };
 
   return (
