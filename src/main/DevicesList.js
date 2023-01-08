@@ -150,7 +150,7 @@ const DeviceRow = ({ data, index, style }) => {
   );
 };
 
-const DevicesList = ({ devices }) => {
+const DevicesList = ({ devices, maxHeight = 200 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const listInnerEl = useRef(null);
@@ -183,7 +183,7 @@ const DevicesList = ({ devices }) => {
     if (devices.length === 0) {
       return 3;
     }
-    return Math.min(73 * devices.length, 200);
+    return Math.min(73 * devices.length, maxHeight);
   };
 
   return (

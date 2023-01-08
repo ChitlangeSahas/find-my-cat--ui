@@ -14,7 +14,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { sessionActions } from '../../store';
 import { useTranslation } from './LocalizationProvider';
 import { useRestriction } from '../util/permissions';
-import { glassMorphism } from '../../main/MainPage';
 
 const BottomMenu = () => {
   const navigate = useNavigate();

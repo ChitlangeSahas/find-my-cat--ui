@@ -7,13 +7,13 @@ import {
   Toolbar,
   IconButton,
   Button,
-  Typography,
+  Typography, Box,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, styled } from '@mui/styles';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AddIcon from '@mui/icons-material/Add';
-import ListIcon from '@mui/icons-material/ViewList';
+import { grey } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import DevicesList from './DevicesList';
@@ -35,6 +35,7 @@ import MapPositions from '../map/MapPositions';
 import MapDirection from '../map/MapDirection';
 import MapOverlay from '../map/overlay/MapOverlay';
 import MapScale from '../map/MapScale';
+import sendMqttMessageToDevice from '../messagesToDevice/mqtt.ts';
 
 export const glassMorphism = {
   background: 'rgba(255,255,255,0.49)',
@@ -49,8 +50,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'fixed',
-    // left: 0,
-    // top: 0,
     zIndex: 3,
     margin: theme.spacing(1.5),
     width: theme.dimensions.drawerWidthDesktop,
@@ -132,7 +131,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Puller = styled(Box)(() => ({
+  width: 60,
+  height: 6,
+  backgroundColor: grey[700],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+  left: 'calc(50% - 30px)',
+  cursor: 'grab',
+}));
+
 const MainPage = () => {
+  useEffect(() => {
+    sendMqttMessageToDevice('ACTIVELY_TRACKING', 'A9G-topic');
+  }, []);
+
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -199,6 +213,7 @@ const MainPage = () => {
       : Object.values(positions));
   }, [devices, positions, filterKeyword, filterStatuses, filterGroups, filterSort, filterMap]);
 
+  let y;
   return (
     <div className={classes.root}>
       <MapView>
@@ -220,13 +235,14 @@ const MainPage = () => {
       { desktop && <MapPadding left={parseInt(theme.dimensions.drawerWidthDesktop, 10)} />}
       <Paper elevation={4} square className={`${classes.sidebar}`}>
         <Toolbar className={classes.toolbar} disableGutters>
-          <Typography variant="h6">Devices</Typography>
+          <Puller />
+          <Typography variant="h6" unselectable="off">Devices</Typography>
           <IconButton onClick={() => navigate('/settings/device')} disabled={deviceReadonly}>
             <AddIcon />
           </IconButton>
         </Toolbar>
         <div className={classes.deviceList}>
-          <DevicesList devices={filteredDevices} />
+          <DevicesList devices={filteredDevices} maxHeight={100} />
         </div>
         <div className={classes.bottomMenu}>
           <BottomMenu />
