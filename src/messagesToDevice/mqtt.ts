@@ -1,8 +1,8 @@
-// import connect from mqtt
+import { connect } from 'mqtt/dist/mqtt'; // import connect from mqtt
 
-require('mqtt');
+
 const sendMqttMessageToDevice = (message: string, topic: string) => {
-  const client = mqtt.connect('wss://e35446e97a1043d7a302d4c8affe9014.s2.eu.hivemq.cloud', {
+  const client = connect('wss://e35446e97a1043d7a302d4c8affe9014.s2.eu.hivemq.cloud', {
     port: 8884,
     protocol: 'mqtts',
     username: 'chitlangesahas',
