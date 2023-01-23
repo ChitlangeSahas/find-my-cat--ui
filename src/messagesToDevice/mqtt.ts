@@ -2,11 +2,9 @@ import { connect } from 'mqtt/dist/mqtt'; // import connect from mqtt
 
 
 const sendMqttMessageToDevice = (message: string, topic: string) => {
-  const client = connect('wss://e35446e97a1043d7a302d4c8affe9014.s2.eu.hivemq.cloud', {
-    port: 8884,
-    protocol: 'mqtts',
-    username: 'chitlangesahas',
-    password: 'bdh8QGKZ3H#aZ2g',
+  const client = connect('mqtt://broker.hivemq.com:8000/mqtt', {
+    port: 8000,
+    protocol: 'mqtt',
     will: {
       qos: 2,
       topic: topic,
